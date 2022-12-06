@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
 
-import io.locngo.pizza.store.common.validation.ApiValidation;
+import io.locngo.pizza.store.common.validation.ApiValidator;
 import io.locngo.pizza.store.user.domain.Email;
 import io.locngo.pizza.store.user.domain.Role;
 import io.locngo.pizza.store.user.domain.User;
@@ -18,7 +18,7 @@ public class UserMapper {
     private final UserRepository userRepository;
 
     public User mapToDomain(final UserJpaEntity entity) {
-        ApiValidation.requireNonNull(entity, "entity");
+        ApiValidator.requireNonNull(entity, "entity");
 
         return User.of(
                 UserId.fromString(entity.getUserId()),
@@ -34,7 +34,7 @@ public class UserMapper {
     }
 
     public UserJpaEntity mapToJpaEntity(final User user) {
-        ApiValidation.requireNonNull(user, "user");
+        ApiValidator.requireNonNull(user, "user");
 
         return this.userRepository.findByUserId(user.getId().toString())
                 .map(entity -> UserJpaEntity.of(

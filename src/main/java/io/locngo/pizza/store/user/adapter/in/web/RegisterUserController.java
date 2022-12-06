@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/users/register")
+@RequestMapping(value = "/api/v1/auth/register")
 public class RegisterUserController {
 
     private final RegisterUserCase registerUserCase;

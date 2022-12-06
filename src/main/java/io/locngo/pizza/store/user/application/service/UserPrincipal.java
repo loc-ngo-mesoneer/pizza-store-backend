@@ -1,4 +1,4 @@
-package io.locngo.pizza.store.common.auth;
+package io.locngo.pizza.store.user.application.service;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import io.locngo.pizza.store.common.validation.ApiValidation;
+import io.locngo.pizza.store.common.validation.ApiValidator;
 import io.locngo.pizza.store.user.domain.User;
 import lombok.Getter;
 
@@ -17,7 +17,7 @@ public class UserPrincipal implements UserDetails {
     private final User user;
 
     private UserPrincipal(User user) {
-        ApiValidation.requireNonNull(user, "user");
+        ApiValidator.requireNonNull(user, "user");
         
         this.user = user;
     }

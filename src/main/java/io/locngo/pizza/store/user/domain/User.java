@@ -3,7 +3,7 @@ package io.locngo.pizza.store.user.domain;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import io.locngo.pizza.store.common.validation.ApiValidation;
+import io.locngo.pizza.store.common.validation.ApiValidator;
 import lombok.Getter;
 
 @Getter
@@ -41,14 +41,14 @@ public class User {
         final boolean blocked,
         final boolean active
     ) {
-        ApiValidation.requireNonNull(id, "id");
-        ApiValidation.requireStringNonBlank(username, "username");
-        ApiValidation.requireStringNonBlank(password, "password");
-        ApiValidation.requireNonNull(email, "email");
-        ApiValidation.requireStringNonBlank(firstname, "firstname");
-        ApiValidation.requireStringNonBlank(lastname, "lastname");
-        ApiValidation.requireNonNull(role, "role");
-        ApiValidation.requireNonNull(lastLoginAt, "lastLoginAt");
+        ApiValidator.requireNonNull(id, "id");
+        ApiValidator.requireStringNonBlank(username, "username");
+        ApiValidator.requireStringNonBlank(password, "password");
+        ApiValidator.requireNonNull(email, "email");
+        ApiValidator.requireStringNonBlank(firstname, "firstname");
+        ApiValidator.requireStringNonBlank(lastname, "lastname");
+        ApiValidator.requireNonNull(role, "role");
+        ApiValidator.requireNonNull(lastLoginAt, "lastLoginAt");
 
         this.id = id;
         this.username = username;

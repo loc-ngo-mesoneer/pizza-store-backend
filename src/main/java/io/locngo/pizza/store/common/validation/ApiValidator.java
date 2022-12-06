@@ -8,7 +8,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ApiValidation {
+public class ApiValidator {
 
     public static void requireNonNull(final Object value, final String fieldName) {
         if (Objects.isNull(value)) {
@@ -31,7 +31,7 @@ public class ApiValidation {
     }
 
     public static void requirePostiveNumber(final Double value, final String fieldName) {
-        ApiValidation.requireNonNull(value, fieldName);
+        ApiValidator.requireNonNull(value, fieldName);
 
         if (0 >= value) {
             final IllegalArgumentException exception = new IllegalArgumentException(
@@ -47,7 +47,7 @@ public class ApiValidation {
     }
 
     public static void requireGreaterOrEqualThanZero(final Double value, final String fieldName) {
-        ApiValidation.requireNonNull(value, fieldName);
+        ApiValidator.requireNonNull(value, fieldName);
 
         if (0 > value) {
             final IllegalArgumentException exception = new IllegalArgumentException(

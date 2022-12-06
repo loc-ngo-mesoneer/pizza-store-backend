@@ -11,7 +11,7 @@ public class ApiValidationTest {
         assertThrows(
             IllegalArgumentException.class, 
             () -> {
-                ApiValidation.requireNonNull(
+                ApiValidator.requireNonNull(
                     null, 
                     "testParam"
                 );
@@ -22,7 +22,7 @@ public class ApiValidationTest {
     @Test
     void givenNonNullValue_whenRequireNonNull_thenDoNothing() {
         assertDoesNotThrow(() -> {
-            ApiValidation.requireNonNull(
+            ApiValidator.requireNonNull(
                 new Object(),
                 "testParam"
             );
@@ -33,7 +33,7 @@ public class ApiValidationTest {
     void givenNonPositiveNumber_whenRequirePostitiveNumber_thenThrowException() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> ApiValidation.requirePostiveNumber(
+            () -> ApiValidator.requirePostiveNumber(
                 Double.valueOf(0), 
                 "testParam"
             )
@@ -41,7 +41,7 @@ public class ApiValidationTest {
 
         assertThrows(
             IllegalArgumentException.class,
-            () -> ApiValidation.requirePostiveNumber(
+            () -> ApiValidator.requirePostiveNumber(
                 Double.valueOf(-1), 
                 "testParam"
             )
@@ -51,7 +51,7 @@ public class ApiValidationTest {
     @Test
     void givenPositiveNumber_whenRequirePostiveNumber_thenDoNothing() {
         assertDoesNotThrow(() -> {
-            ApiValidation.requireNonNull(
+            ApiValidator.requireNonNull(
                 Double.valueOf(1), 
                 "testParam"
             );
@@ -63,7 +63,7 @@ public class ApiValidationTest {
         assertThrows(
             IllegalArgumentException.class, 
             () -> {
-                ApiValidation.requireStringNonBlank(
+                ApiValidator.requireStringNonBlank(
                     null, 
                     "testParam"
                 );
@@ -73,7 +73,7 @@ public class ApiValidationTest {
         assertThrows(
             IllegalArgumentException.class, 
             () -> {
-                ApiValidation.requireStringNonBlank(
+                ApiValidator.requireStringNonBlank(
                     "", 
                     "testParam"
                 );
@@ -84,7 +84,7 @@ public class ApiValidationTest {
     @Test
     void givenNonBlankString_whenRequireStringNonBlank_thenDoNothing() {
         assertDoesNotThrow(() -> {
-            ApiValidation.requireStringNonBlank(
+            ApiValidator.requireStringNonBlank(
                 "test",
                 "testParam"
             );
@@ -96,14 +96,14 @@ public class ApiValidationTest {
         assertThrows(
             IllegalArgumentException.class, 
             () -> {
-                ApiValidation.requireGreaterOrEqualThanZero(-0.0001, "testParam");
+                ApiValidator.requireGreaterOrEqualThanZero(-0.0001, "testParam");
             }
         );
 
         assertThrows(
             IllegalArgumentException.class, 
             () -> {
-                ApiValidation.requireGreaterOrEqualThanZero(-1000.0, "testParam");
+                ApiValidator.requireGreaterOrEqualThanZero(-1000.0, "testParam");
             }
         );
     }
@@ -112,12 +112,12 @@ public class ApiValidationTest {
     void givenNumberGreaterThanOrEqualZero_whenRequireGreateThanOrEqualZero_thenDoNothing() {
         assertDoesNotThrow(
             () -> {
-                ApiValidation.requireGreaterOrEqualThanZero(0.0, "testParam");
+                ApiValidator.requireGreaterOrEqualThanZero(0.0, "testParam");
             }
         );
         assertDoesNotThrow(
             () -> {
-                ApiValidation.requireGreaterOrEqualThanZero(1000.0, "testParam");
+                ApiValidator.requireGreaterOrEqualThanZero(1000.0, "testParam");
             }
         );
     }
@@ -127,7 +127,7 @@ public class ApiValidationTest {
         final String validEmail = "loc.ngo@gmail.com";
         
         assertDoesNotThrow(() -> {
-            ApiValidation.requireValidEmail(validEmail, "testParam");
+            ApiValidator.requireValidEmail(validEmail, "testParam");
         });
     }
 
@@ -137,7 +137,7 @@ public class ApiValidationTest {
         
         assertThrows(
             IllegalArgumentException.class, 
-            () -> ApiValidation.requireValidEmail(invalidEmail, "testParam")
+            () -> ApiValidator.requireValidEmail(invalidEmail, "testParam")
         );
     }
 }

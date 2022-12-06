@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import io.locngo.pizza.store.common.validation.ApiValidation;
+import io.locngo.pizza.store.common.validation.ApiValidator;
 import io.locngo.pizza.store.user.application.port.out.PersistUserPort;
 import io.locngo.pizza.store.user.application.port.out.QueryPersistedUserPort;
 import io.locngo.pizza.store.user.domain.User;
@@ -32,7 +32,7 @@ public class UserPersistenceAdapter implements PersistUserPort, QueryPersistedUs
 
     @Override
     public User persist(final User user) {
-        ApiValidation.requireNonNull(user, "user");
+        ApiValidator.requireNonNull(user, "user");
 
         final UserJpaEntity entity = this.userMapper.mapToJpaEntity(user);
 

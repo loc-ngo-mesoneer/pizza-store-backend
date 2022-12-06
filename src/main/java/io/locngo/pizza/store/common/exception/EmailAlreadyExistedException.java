@@ -8,7 +8,7 @@ public class EmailAlreadyExistedException extends RuntimeException {
 
     public static EmailAlreadyExistedException newInstance(final String email) {
         final String errorMessage = String.format(
-            "User with email %s already existed!", 
+            "User with email [%s] already existed!", 
             email
         );
         return new EmailAlreadyExistedException(errorMessage);

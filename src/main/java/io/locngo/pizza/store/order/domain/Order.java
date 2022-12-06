@@ -9,7 +9,7 @@ import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import io.locngo.pizza.store.common.validation.ApiValidation;
+import io.locngo.pizza.store.common.validation.ApiValidator;
 import io.locngo.pizza.store.product.domain.Product;
 import io.locngo.pizza.store.product.domain.Product.ProductId;
 import lombok.Getter;
@@ -40,12 +40,12 @@ public class Order {
             final Collection<OrderItem> orderItems,
             final String description
     ) {
-        ApiValidation.requireNonNull(id, "id");
-        ApiValidation.requireStringNonBlank(phoneNumber, "phoneNumber");
-        ApiValidation.requireStringNonBlank(address, "address");
-        ApiValidation.requireNonNull(status, "status");
-        ApiValidation.requireNonNull(stages, "stages");
-        ApiValidation.requireNonNull(orderItems, "orderItems");
+        ApiValidator.requireNonNull(id, "id");
+        ApiValidator.requireStringNonBlank(phoneNumber, "phoneNumber");
+        ApiValidator.requireStringNonBlank(address, "address");
+        ApiValidator.requireNonNull(status, "status");
+        ApiValidator.requireNonNull(stages, "stages");
+        ApiValidator.requireNonNull(orderItems, "orderItems");
 
         this.id = id;
         this.phoneNumber = phoneNumber;
@@ -89,7 +89,7 @@ public class Order {
     }
 
     public Order addOrderStage(final OrderStage stage) {
-        ApiValidation.requireNonNull(stage, "stage");
+        ApiValidator.requireNonNull(stage, "stage");
 
         if (this.stages.containsKey(stage.getStatus())) {
             throw new IllegalArgumentException(
@@ -117,8 +117,8 @@ public class Order {
         final Product product,
         final long amount
     ) {
-        ApiValidation.requireNonNull(product, "product");
-        ApiValidation.requirePostiveNumber(Double.valueOf(amount), "amount");
+        ApiValidator.requireNonNull(product, "product");
+        ApiValidator.requirePostiveNumber(Double.valueOf(amount), "amount");
 
         final OrderItem updatedOrderItem = this.updateOrderItemToBeAdded(product, amount);
 
@@ -164,8 +164,8 @@ public class Order {
         final Product product,
         final long amount
     ) {
-        ApiValidation.requireNonNull(product, "product");
-        ApiValidation.requirePostiveNumber(Double.valueOf(amount), "amount");
+        ApiValidator.requireNonNull(product, "product");
+        ApiValidator.requirePostiveNumber(Double.valueOf(amount), "amount");
 
         final OrderItem subtractedOrderItem = this.updateOrderItemToBeSubtracted(product, amount);
 

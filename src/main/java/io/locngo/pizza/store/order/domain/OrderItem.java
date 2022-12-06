@@ -2,7 +2,7 @@ package io.locngo.pizza.store.order.domain;
 
 import java.util.UUID;
 
-import io.locngo.pizza.store.common.validation.ApiValidation;
+import io.locngo.pizza.store.common.validation.ApiValidator;
 import io.locngo.pizza.store.product.domain.Product;
 import io.locngo.pizza.store.product.domain.Product.ProductId;
 import lombok.Getter;
@@ -27,11 +27,11 @@ public class OrderItem {
         final double price,
         final long quantity
     ) {
-        ApiValidation.requireNonNull(id, "id");
-        ApiValidation.requireNonNull(productId, "productId");
-        ApiValidation.requireStringNonBlank(productName, "productName");
-        ApiValidation.requireGreaterOrEqualThanZero(price, "price");
-        ApiValidation.requireGreaterOrEqualThanZero(Double.valueOf(quantity), "quantity");
+        ApiValidator.requireNonNull(id, "id");
+        ApiValidator.requireNonNull(productId, "productId");
+        ApiValidator.requireStringNonBlank(productName, "productName");
+        ApiValidator.requireGreaterOrEqualThanZero(price, "price");
+        ApiValidator.requireGreaterOrEqualThanZero(Double.valueOf(quantity), "quantity");
 
         this.id = id;
         this.productId = productId;
@@ -41,8 +41,8 @@ public class OrderItem {
     }
 
     public static OrderItem newInstance(final Product product, final long quantity) {
-        ApiValidation.requireNonNull(product, "product");
-        ApiValidation.requirePostiveNumber(Double.valueOf(quantity), "quantity");
+        ApiValidator.requireNonNull(product, "product");
+        ApiValidator.requirePostiveNumber(Double.valueOf(quantity), "quantity");
 
         if(!product.isProductAvailable(quantity)) {
             throw new IllegalArgumentException(
@@ -79,7 +79,7 @@ public class OrderItem {
     }
 
     public OrderItem addQuantity(final long amount) {
-        ApiValidation.requirePostiveNumber(Double.valueOf(amount), "amount");
+        ApiValidator.requirePostiveNumber(Double.valueOf(amount), "amount");
 
         final long updatedQuantity = this.quantity + amount;
 
@@ -93,7 +93,7 @@ public class OrderItem {
     }
 
     public OrderItem substractQuantity(final long amount) {
-        ApiValidation.requirePostiveNumber(Double.valueOf(amount), "amount");
+        ApiValidator.requirePostiveNumber(Double.valueOf(amount), "amount");
     
         final long caculatedQuantity = this.quantity - amount;
 

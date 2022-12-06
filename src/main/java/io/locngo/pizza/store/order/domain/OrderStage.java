@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import io.locngo.pizza.store.common.constant.OrderConstant;
-import io.locngo.pizza.store.common.validation.ApiValidation;
+import io.locngo.pizza.store.common.validation.ApiValidator;
 import io.locngo.pizza.store.user.domain.Role;
 import io.locngo.pizza.store.user.domain.User;
 import lombok.Getter;
@@ -32,12 +32,12 @@ public class OrderStage {
         final OrderStatus status,
         final LocalDateTime createdAt
     ) {
-        ApiValidation.requireNonNull(id, "id");
-        ApiValidation.requireStringNonBlank(assigneeId, "assigneeId");
-        ApiValidation.requireStringNonBlank(assigneeFirstname, "assigneeFirstname");
-        ApiValidation.requireStringNonBlank(assigneeFirstname, "assigneeLastname");
-        ApiValidation.requireNonNull(status, "status");
-        ApiValidation.requireNonNull(createdAt, "createdAt");
+        ApiValidator.requireNonNull(id, "id");
+        ApiValidator.requireStringNonBlank(assigneeId, "assigneeId");
+        ApiValidator.requireStringNonBlank(assigneeFirstname, "assigneeFirstname");
+        ApiValidator.requireStringNonBlank(assigneeFirstname, "assigneeLastname");
+        ApiValidator.requireNonNull(status, "status");
+        ApiValidator.requireNonNull(createdAt, "createdAt");
 
         this.id = id;
         this.assigneeId = assigneeId;
@@ -73,7 +73,7 @@ public class OrderStage {
         final OrderStage placedStage,
         final User assignee
     ) {
-        ApiValidation.requireNonNull(placedStage, "placedStage");
+        ApiValidator.requireNonNull(placedStage, "placedStage");
 
         if(Role.ROLE_RECEPTIONIST != assignee.getRole()) {
             throw new IllegalStateException(
@@ -109,7 +109,7 @@ public class OrderStage {
         final OrderStage confirmedStage,
         final User assignee
     ) {
-        ApiValidation.requireNonNull(confirmedStage, "confirmedStage");
+        ApiValidator.requireNonNull(confirmedStage, "confirmedStage");
 
         if(Role.ROLE_CHEF != assignee.getRole()) {
             throw new IllegalStateException(
@@ -145,7 +145,7 @@ public class OrderStage {
         final OrderStage cookedStage,
         final User assignee
     ) {
-        ApiValidation.requireNonNull(cookedStage, "cookedStage");
+        ApiValidator.requireNonNull(cookedStage, "cookedStage");
 
         if(Role.ROLE_SHIPPER != assignee.getRole()) {
             throw new IllegalStateException(

@@ -2,7 +2,7 @@ package io.locngo.pizza.store.product.domain;
 
 import java.util.UUID;
 
-import io.locngo.pizza.store.common.validation.ApiValidation;
+import io.locngo.pizza.store.common.validation.ApiValidator;
 import lombok.Getter;
 
 @Getter
@@ -31,11 +31,11 @@ public class Product {
         final String description,
         final boolean disable
     ) {
-        ApiValidation.requireNonNull(id, "id");
-        ApiValidation.requireStringNonBlank(productName, "productName");
-        ApiValidation.requireGreaterOrEqualThanZero(price, "price");
-        ApiValidation.requireGreaterOrEqualThanZero(Double.valueOf(quantity), "quantity");
-        ApiValidation.requireStringNonBlank(productImageUrl, "productImageUrl");
+        ApiValidator.requireNonNull(id, "id");
+        ApiValidator.requireStringNonBlank(productName, "productName");
+        ApiValidator.requireGreaterOrEqualThanZero(price, "price");
+        ApiValidator.requireGreaterOrEqualThanZero(Double.valueOf(quantity), "quantity");
+        ApiValidator.requireStringNonBlank(productImageUrl, "productImageUrl");
 
         this.id = id;
         this.productName = productName;
@@ -86,7 +86,7 @@ public class Product {
     }
 
     public Product updatePrice(final double price) {
-        ApiValidation.requireGreaterOrEqualThanZero(price, "price");
+        ApiValidator.requireGreaterOrEqualThanZero(price, "price");
 
         return new Product(
             this.id, 
@@ -100,7 +100,7 @@ public class Product {
     }
 
     public Product updateQuantity(final long quantity) {
-        ApiValidation.requireGreaterOrEqualThanZero(Double.valueOf(quantity), "quantity");
+        ApiValidator.requireGreaterOrEqualThanZero(Double.valueOf(quantity), "quantity");
 
         return new Product(
             this.id, 
@@ -118,8 +118,8 @@ public class Product {
         final String productImageUrl,
         final String description
     ) {
-        ApiValidation.requireStringNonBlank(productName, "productName");
-        ApiValidation.requireStringNonBlank(productImageUrl, "productImageUrl");
+        ApiValidator.requireStringNonBlank(productName, "productName");
+        ApiValidator.requireStringNonBlank(productImageUrl, "productImageUrl");
 
         return new Product(
             this.id, 

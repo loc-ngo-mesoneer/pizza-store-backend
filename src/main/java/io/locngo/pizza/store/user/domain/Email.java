@@ -1,6 +1,6 @@
 package io.locngo.pizza.store.user.domain;
 
-import io.locngo.pizza.store.common.validation.ApiValidation;
+import io.locngo.pizza.store.common.validation.ApiValidator;
 import lombok.Getter;
 
 @Getter
@@ -9,7 +9,7 @@ public class Email {
     private final String value;
 
     private Email(final String value) {
-        ApiValidation.requireValidEmail(value, "value");
+        ApiValidator.requireValidEmail(value, "value");
 
         this.value = value;
     }

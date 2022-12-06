@@ -3,7 +3,9 @@ package io.locngo.pizza.store.user.application.service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import io.locngo.pizza.store.common.validation.ApiValidation;
+import io.locngo.pizza.store.common.exception.EmailAlreadyExistedException;
+import io.locngo.pizza.store.common.exception.UsernameAlreadyExistedException;
+import io.locngo.pizza.store.common.validation.ApiValidator;
 import io.locngo.pizza.store.user.application.port.in.RegisterCommand;
 import io.locngo.pizza.store.user.application.port.in.RegisterResponse;
 import io.locngo.pizza.store.user.application.port.in.RegisterUserCase;
@@ -25,7 +27,7 @@ public class RegisterService implements RegisterUserCase {
 
     @Override
     public RegisterResponse registerReceptionist(final RegisterCommand command) {
-        ApiValidation.requireNonNull(command, "command");
+        ApiValidator.requireNonNull(command, "command");
 
         this.validateUsernameNotExisted(command.getUsername());
         this.validateEmailNotExisted(command.getEmail());
@@ -60,24 +62,14 @@ public class RegisterService implements RegisterUserCase {
     private void validateUsernameNotExisted(final String username) {
         this.queryPersistedUserPort.getPersistedUserByUsername(username)
             .ifPresent(existedUser -> {
-                throw new IllegalArgumentException(
-                    String.format(
-                        "User with username %s already existed!", 
-                        existedUser.getUsername()
-                    )
-                );
+                throw UsernameAlreadyExistedException.newInstance(username);
             });
     }
 
     private void validateEmailNotExisted(final String email) {
         this.queryPersistedUserPort.getPersistedUserByEmail(email)
             .ifPresent(existedUser -> {
-                throw new IllegalArgumentException(
-                    String.format(
-                        "User with email %s already existed!", 
-                        existedUser.getEmail().getValue()
-                    )
-                );
+               throw EmailAlreadyExistedException.newInstance(email);
             });
     }
 }

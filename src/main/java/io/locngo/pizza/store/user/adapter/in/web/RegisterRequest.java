@@ -1,19 +1,21 @@
 package io.locngo.pizza.store.user.adapter.in.web;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegisterRequest {
 
-    private final String username;
+    private String username;
 
-    private final String password;
+    private String password;
 
-    private final String email;
+    private String email;
 
-    private final String firstname;
+    private String firstname;
 
-    private final String lastname;
+    private String lastname;
 }

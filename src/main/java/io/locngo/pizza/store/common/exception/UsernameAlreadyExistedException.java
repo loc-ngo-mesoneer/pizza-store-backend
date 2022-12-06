@@ -8,7 +8,7 @@ public class UsernameAlreadyExistedException extends RuntimeException {
 
     public static UsernameAlreadyExistedException newInstance(final String username) {
         final String errorMessage = String.format(
-            "User with username %s already existed!", 
+            "User with username [%s] already existed!", 
             username
         );
         return new UsernameAlreadyExistedException(errorMessage);
