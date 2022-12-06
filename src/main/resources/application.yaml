@@ -1,0 +1,15 @@
+jwt:
+  secret: ${JWT_SECRET}:secret-value
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pizza-store
+    username: admin
+    password: secret
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect

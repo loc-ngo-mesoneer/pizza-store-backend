@@ -1,0 +1,143 @@
+package io.locngo.pizza.store.common.validation;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+public class ApiValidationTest {
+    @Test
+    void givenNullValue_whenRequireNonNull_thenThrowException() {
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> {
+                ApiValidation.requireNonNull(
+                    null, 
+                    "testParam"
+                );
+            }
+        );
+    }
+
+    @Test
+    void givenNonNullValue_whenRequireNonNull_thenDoNothing() {
+        assertDoesNotThrow(() -> {
+            ApiValidation.requireNonNull(
+                new Object(),
+                "testParam"
+            );
+        });
+    }
+
+    @Test
+    void givenNonPositiveNumber_whenRequirePostitiveNumber_thenThrowException() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> ApiValidation.requirePostiveNumber(
+                Double.valueOf(0), 
+                "testParam"
+            )
+        );
+
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> ApiValidation.requirePostiveNumber(
+                Double.valueOf(-1), 
+                "testParam"
+            )
+        );
+    }
+
+    @Test
+    void givenPositiveNumber_whenRequirePostiveNumber_thenDoNothing() {
+        assertDoesNotThrow(() -> {
+            ApiValidation.requireNonNull(
+                Double.valueOf(1), 
+                "testParam"
+            );
+        });
+    }
+
+    @Test
+    void givenBlankString_whenRequireStringNonBlank_thenThrowException() {
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> {
+                ApiValidation.requireStringNonBlank(
+                    null, 
+                    "testParam"
+                );
+            }
+        );
+
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> {
+                ApiValidation.requireStringNonBlank(
+                    "", 
+                    "testParam"
+                );
+            }
+        );  
+    }
+
+    @Test
+    void givenNonBlankString_whenRequireStringNonBlank_thenDoNothing() {
+        assertDoesNotThrow(() -> {
+            ApiValidation.requireStringNonBlank(
+                "test",
+                "testParam"
+            );
+        });
+    }
+
+    @Test
+    void givenNumberNotGreaterThanOrEqualZero_whenRequireGreateThanOrEqualZero_thenDoNothing() {
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> {
+                ApiValidation.requireGreaterOrEqualThanZero(-0.0001, "testParam");
+            }
+        );
+
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> {
+                ApiValidation.requireGreaterOrEqualThanZero(-1000.0, "testParam");
+            }
+        );
+    }
+
+    @Test
+    void givenNumberGreaterThanOrEqualZero_whenRequireGreateThanOrEqualZero_thenDoNothing() {
+        assertDoesNotThrow(
+            () -> {
+                ApiValidation.requireGreaterOrEqualThanZero(0.0, "testParam");
+            }
+        );
+        assertDoesNotThrow(
+            () -> {
+                ApiValidation.requireGreaterOrEqualThanZero(1000.0, "testParam");
+            }
+        );
+    }
+
+    @Test
+    void givenValidEmail_whenRequireValidEmail_thenDoNothing() {
+        final String validEmail = "loc.ngo@gmail.com";
+        
+        assertDoesNotThrow(() -> {
+            ApiValidation.requireValidEmail(validEmail, "testParam");
+        });
+    }
+
+    @Test
+    void givenInvalidEmail_whenRequireValidEmail_thenThrowException() {
+        final String invalidEmail = "not a valid email";
+        
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> ApiValidation.requireValidEmail(invalidEmail, "testParam")
+        );
+    }
+}
