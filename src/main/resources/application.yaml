@@ -3,7 +3,7 @@ jwt:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/pizza-store
+    url: jdbc:postgresql://postgres-database:5432/pizza-store
     username: admin
     password: secret
   jpa:

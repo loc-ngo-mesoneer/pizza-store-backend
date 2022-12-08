@@ -4,10 +4,19 @@ services:
 
   postgres-database:
     image: postgres:12
-    restart: always
     ports:
       - 5432:5432
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: secret
       POSTGRES_DB: pizza-store
+
+  pizza-store-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pizza-store-backend
+    depends_on:
+      - postgres-database
+    ports:
+      - 8080:8080
