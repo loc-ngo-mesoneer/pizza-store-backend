@@ -1,6 +1,10 @@
 jwt:
   secret: secret-value
 
+server:
+  servlet:
+    context-path: /api
+
 spring:
   datasource:
     url: jdbc:postgresql://postgres-database:5432/pizza-store

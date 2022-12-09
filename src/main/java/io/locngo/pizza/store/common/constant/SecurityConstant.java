@@ -22,9 +22,9 @@ public class SecurityConstant {
 
     public static final String FOBBIDEN_MESSAGE = "You do not have permission";
 
-    private static final String API_VERSION_REGEX = "/(api)/(v[0-9])/";
+    private static final String API_VERSION_REGEX = "/(v\\d+)/";
 
     public static final RequestMatcher[] PUBLIC_URLS = {
-            RegexRequestMatcher.regexMatcher(API_VERSION_REGEX + "auth/register.*")
+        RegexRequestMatcher.regexMatcher(API_VERSION_REGEX + "auth/login.*")
     };
 }
