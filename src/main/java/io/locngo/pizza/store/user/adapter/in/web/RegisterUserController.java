@@ -12,7 +12,7 @@ import io.locngo.pizza.store.user.application.port.in.RegisterUserCase;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@RestApiController("/v1/user")
+@RestApiController("/user")
 public class RegisterUserController {
 
     private final RegisterUserCase registerUserCase;

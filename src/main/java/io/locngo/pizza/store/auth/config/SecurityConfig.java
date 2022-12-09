@@ -2,6 +2,7 @@ package io.locngo.pizza.store.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -15,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import io.locngo.pizza.store.auth.filter.JwtAuthorizationFilter;
 import io.locngo.pizza.store.auth.web.handler.CustomAccessDeniedHandler;
 import io.locngo.pizza.store.auth.web.handler.CustomAuthenticationEntryPoint;
-import io.locngo.pizza.store.common.constant.SecurityConstant;
+
 
 @Configuration
 @EnableWebSecurity
@@ -42,16 +43,8 @@ public class SecurityConfig {
             CustomAccessDeniedHandler customAccessDeniedHandler
     ) throws Exception {
         return httpSecurity
-                .authorizeHttpRequests()
-                .requestMatchers(SecurityConstant.PUBLIC_URLS)
-                    .permitAll()
-                .anyRequest()
-                    .authenticated()
-                .and()
-                    .cors().disable()
-                    .csrf().disable()
-                .httpBasic()
-                .and()
+                .cors().disable()
+                .csrf().disable()
                 .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -59,6 +52,14 @@ public class SecurityConfig {
                 .exceptionHandling()
                     .authenticationEntryPoint(customAuthenticationEntryPoint)
                     .accessDeniedHandler(customAccessDeniedHandler)
+                .and()
+                .authorizeHttpRequests()
+                    .requestMatchers(HttpMethod.GET, "/actuator/**", "/swagger-ui/**", "/v3/api-docs/**", "/error")
+                    .permitAll()
+                    .requestMatchers(HttpMethod.POST, "/auth/login")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated()
                 .and()
                 .build();
     }

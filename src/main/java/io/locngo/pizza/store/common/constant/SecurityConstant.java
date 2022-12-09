@@ -21,10 +21,4 @@ public class SecurityConstant {
     public static final String UNAUTHORIZED_MESSAGE = "Unauthorized, you need to login";
 
     public static final String FOBBIDEN_MESSAGE = "You do not have permission";
-
-    private static final String API_VERSION_REGEX = "/(v\\d+)/";
-
-    public static final RequestMatcher[] PUBLIC_URLS = {
-        RegexRequestMatcher.regexMatcher(API_VERSION_REGEX + "auth/login.*")
-    };
 }
